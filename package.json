@@ -5,11 +5,13 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "start": "node server.js"
   },
   "dependencies": {
     "@xkeshi/vue-countdown": "^1.0.1",
     "countdown-vue": "^0.1.2",
+    "express": "^4.16.3",
     "react-stripe-checkout": "^2.6.3",
     "register-service-worker": "^1.0.0",
     "vue": "^2.5.17",
