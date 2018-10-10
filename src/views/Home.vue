@@ -1,6 +1,5 @@
 <template>
   <div class="home">
-    <p>we know the student &#128184; struggle. we want to solve that. <br>get exclusive student access to incredible deals.</p>
     <input type="text" id="password" placeholder="password"/>
     <button id="enter">enter</button>
   </div>
@@ -14,19 +13,23 @@ export default {
   name: 'home',
   components: {
     // HelloWorld
-  }
+  },
+  methods: {
+    checkPassword: function (event) {
+      console.log(this.$refs.passwordInput.value);
+      if (this.$refs.passwordInput.value == "big red") {
+        this.showShop = true;
+        this.showPasswordArea = false;
+        this.showLargelogoArea = false;
+        this.showHeader = true;
+      }
+    }
+  },
 }
 </script>
 
 <style>
   @import url('https://fonts.googleapis.com/css?family=Graduate|Roboto:100,400,700');
-  h1 {
-    font-family: 'Graduate';
-    font-weight: 400;
-    color: #f22613;
-    font-size: 8vw;
-    margin-bottom: 0;
-  }
   h2 {
     font-family: 'Roboto';
     font-size: 30px;

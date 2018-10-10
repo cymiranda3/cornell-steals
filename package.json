@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@xkeshi/vue-countdown": "^1.0.1",
+    "countdown-vue": "^0.1.2",
     "react-stripe-checkout": "^2.6.3",
     "register-service-worker": "^1.0.0",
     "vue": "^2.5.17",

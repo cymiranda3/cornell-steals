@@ -1,28 +1,36 @@
-
-
 <template>
+<div class="container">
   <div class="row">
     <div id="column1" class="column">
       <img id="product_image" src="../assets/bose-speaker.png" />
+      <div id="prod-info">
+        <h1 id="lowdown">product information</h1>
+        <h2>description: </h2>
+          <p>lorem ipsorum...</p>
+      
+        <h2>state of merchandise: </h2>
+          <p>refurbished</p>
+        
+        <div id="competitor-icon">
+          <a href="http://www.amazon.com"><img src="../assets/amazon.png" alt="View on Amazon"></a>
+        </div>
+      </div>
     </div>
   <div id="column2" class="column">
-    <h2 id="product-name">{{product_name}}</h2>
+    <h2 id="product-name">{{this.product_name}}</h2>
     <div id="product_info">
       <a id="price">${{product_price}}</a><a id="original-price" >{{original_price}}</a>
       <p id="remaining">Only {{remaining}} Remaining!</p>
 
-      <countdown :leading-zero=false id="countdown" :time="2 * 24 * 60 * 60 * 1000">
-        <template slot-scope="props"><strong>{{ props.days }}</strong> D, <strong>{{ props.hours }}</strong> H, <strong>{{ props.minutes }}</strong> M, <strong>{{ props.seconds }}</strong> S</template>
-      </countdown>
+      <Countdown end='October 31, 2018' showDays showHours showMinutes showSeconds></Countdown>
 
-      <stripe-checkout
-          stripe-key="pk_test_yTJxZesoeXqs7pJNbVubWPBu"
-          product="product">
-      </stripe-checkout>
+      <stripe />
       
     </div>
   </div>
 </div>
+</div>
+
 </template>
 
 <script>
@@ -30,33 +38,46 @@
 
 // @ is an alias to /src
 // import HelloWorld from '@/components/HelloWorld.vue;
-import { StripeCheckout } from 'vue-stripe'
-import countdown from '@xkeshi/vue-countdown';
+import Countdown from 'countdown-vue'
+import stripe from '@/views/Stripe.vue'
 
 export default {
-  name: 'shop',
+  name: 'Shop',
   components: {
     // HelloWorld
-    'stripe-checkout': StripeCheckout,
-    countdown,
+    Countdown,
+    stripe,
   },
   data() {
     return {
       image_path: null,
+      product_name: "Bose Speaker",
+      product_price: "20.69",
+      original_price: "100.69",
+      remaining: 6,
+      end: "October 28, 2018",
+
     }
-  },
-  props: ['product_name', 'original_price', 'product_price', 'remaining'],
+  }
 }
 </script>
 
 <style>
   @import url('https://fonts.googleapis.com/css?family=Graduate|Roboto:100,400,700');
-  h1 {
-    font-family: 'Graduate';
-    font-weight: 400;
-    color: #f22613;
-    font-size: 8vw;
+
+  .container {
+    margin-top: 5vw;
+  }
+  #lowdown {
+    font-family: 'Roboto';
+    font-weight: 100;
+    color: white;
+    font-size: 3vw;
     margin-bottom: 0;
+    text-decoration: underline;
+    margin-left: 5vw;
+    display: block;
+    width: 100vw;
   }
   h2 {
     font-family: 'Roboto';
@@ -72,10 +93,56 @@ export default {
     font-weight: 200;
     color: white;
   }
+
+  #competitor-icon {
+    margin-top: 1vw;
+    display: block;
+    width: 42px;
+  }
+
+  #competitor-icon img {
+    width: 10vw;
+    height: auto;
+  }
+
   #original-price {
     color: #f22613;
     text-decoration: line-through;
     margin-left: 1vw;
+  }
+
+  #prod-info h1 {
+    margin-left: 10vw;
+    margin-top: 100px;
+    text-decoration: none;
+    font-weight: 600;
+    border-bottom: 1px dotted white;
+    width: 80vw;
+  }
+
+  #prod-info h2, #prod-info a {
+    margin-left: 12vw;
+    margin-bottom: 0;
+    font-weight: 400;
+    font-size: 25px;
+    display: inline-block;
+  }
+
+  #prod-info p {
+    margin-bottom: 0;
+    font-size: 22px;
+    color: white;
+    font-style: italic;
+    font-weight:100;
+    margin-left: 2vw;
+    display: inline-block;
+  }
+
+  #prod-info ul {
+    margin-left: 12vw;
+    margin-top: 2vw;
+    color: white;
+    font-size: 25px;
   }
 
   input {
@@ -92,6 +159,7 @@ export default {
     background-color: transparent;
     color: white;
   }
+
   button {
     background-color: transparent;
     margin-left: .5vw;
@@ -101,40 +169,15 @@ export default {
     padding: 10px;
     font-family: 'Roboto';
     font-size: 2vw;
-    font-weight: 100;
+    font-weight: 400;
     color: white;
-    -webkit-animation: glowing 4500ms infinite;
-    -moz-animation: glowing 4500ms infinite;
-    -o-animation: glowing 4500ms infinite;
-    animation: glowing 4500ms infinite;
-}
-@-webkit-keyframes glowing {
-  0% { -webkit-box-shadow: 0 0 3px #B20000; }
-  50% { -webkit-box-shadow: 0 0 40px #FF0000; }
-  100% { -webkit-box-shadow: 0 0 3px #B20000; }
-}
-
-@-moz-keyframes glowing {
-  0% { -moz-box-shadow: 0 0 3px #B20000; }
-  50% { -moz-box-shadow: 0 0 40px #FF0000; }
-  100% {  -moz-box-shadow: 0 0 3px #B20000; }
-}
-
-@-o-keyframes glowing {
-  0% {  box-shadow: 0 0 3px #B20000; }
-  50% {  box-shadow: 0 0 40px #FF0000; }
-  100% {  box-shadow: 0 0 3px #B20000; }
-}
-
-@keyframes glowing {
-  0% { box-shadow: 0 0 3px #B20000; }
-  50% { box-shadow: 0 0 40px #FF0000; }
-  100% { box-shadow: 0 0 3px #B20000; }
+    background-color: white; 
+    color: #2e3131;
 }
 
   * {
-    box-sizing: border-box;
-}
+      box-sizing: border-box;
+  }
 
 /* Create two equal columns that floats next to each other */
 .column {
@@ -159,7 +202,7 @@ export default {
   margin-top: 2vw;
   padding-left: 10vw;
   text-align: left;
-  margin-bottom: 200px;
+  margin-bottom: 5vw;
 }
 
 #product_image {
@@ -171,7 +214,8 @@ export default {
     width: auto;
     background-image: linear-gradient(pink, blue);
     border-radius: 60px;
-    box-shadow: 4vw 4vw white;
+    box-shadow: 1vw 1vw white;
+    margin-top: 1vw;
   }
 
   #product_info {
@@ -188,6 +232,17 @@ export default {
   #remaining {
     font-family: 'Roboto';
     font-size: 2vw;
+  }
+
+  #lowdown ul {
+    color: white;
+    float: left;
+    display: block;
+  }
+
+  #list {
+    display: block;
+    margin-left: 20vw;
   }
 
   @media screen and (max-width: 600px) {
